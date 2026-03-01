@@ -37,7 +37,7 @@ export default function TestimonialCard({
                     <Star
                         key={i}
                         size={16}
-                        className={i < rating ? "text-gold fill-gold" : "text-gray-200 fill-gray-200"}
+                        className={i < rating ? "text-blue-400 fill-blue-400" : "text-gray-200 fill-gray-200"}
                     />
                 ))}
             </div>
@@ -63,7 +63,7 @@ export default function TestimonialCard({
                         className="w-11 h-11 rounded-full object-cover ring-2 ring-gold/30"
                     />
                 ) : (
-                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center text-white font-bold text-sm ring-2 ring-gold/30">
+                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center text-white font-bold text-sm ring-2 ring-blue-500/30">
                         {initials}
                     </div>
                 )}

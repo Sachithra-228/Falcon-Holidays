@@ -21,7 +21,7 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-gold text-navy-900 font-semibold rounded-lg hover:bg-gold-400 transition-all duration-300 shadow-lg hover:shadow-gold/30 hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition-all duration-300 shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5;
   }
 
   .btn-secondary {
@@ -45,11 +45,11 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-navy-900 to-gold bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-navy-900 to-blue-500 bg-clip-text text-transparent;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors bg-white text-gray-800 placeholder-gray-400;
+    @apply w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-colors bg-white text-gray-800 placeholder-gray-400;
   }
 
   .label-field {

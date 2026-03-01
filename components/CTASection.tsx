@@ -19,13 +19,10 @@ export default function CTASection({
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900" />
             {/* Decorative blobs */}
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 text-gold px-4 py-1.5 rounded-full text-sm font-medium mb-6">
-                    ✦ Limited Spots Available
-                </div>
 
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 leading-tight">
                     {title}
@@ -46,7 +43,7 @@ export default function CTASection({
                     </a>
                     <Link
                         href="/contact"
-                        className="flex items-center gap-2 px-8 py-4 border-2 border-gold text-gold font-semibold rounded-xl hover:bg-gold hover:text-navy-900 transition-all duration-300 group"
+                        className="flex items-center gap-2 px-8 py-4 border-2 border-blue-500 text-blue-500 font-semibold rounded-xl hover:bg-blue-500 hover:text-white transition-all duration-300 group"
                     >
                         Send an Inquiry
                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

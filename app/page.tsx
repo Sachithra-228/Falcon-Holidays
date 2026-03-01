@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Shield, Award, Headphones, Globe, Star, MapPin } from "lucide-react";
+import { ArrowRight, Shield, Award, Headphones, Globe, Star, MapPin, Quote } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTASection from "@/components/CTASection";
 import PackageScrollSection from "@/components/PackageScrollSection";
+import { useRef, useEffect, useState } from "react";
 
 const whyFalcon = [
     {
@@ -50,11 +54,30 @@ const testimonials = [
         review: "The Dubai family package was phenomenal. Desert safari, Burj Khalifa, and everything in between. Great value for money and excellent customer service throughout.",
         trip: "Dubai Family Adventure",
     },
+    {
+        name: "The Wijesinghe Family",
+        location: "Melbourne, Australia",
+        rating: 5,
+        review: "Exploring the tea plantations in Nuwara Eliya with Falcon Holidays was a dream. The kids loved the train ride! Excellent organization and friendly guides.",
+        trip: "Tea Country Family Retreat",
+    },
+    {
+        name: "David & Elena",
+        location: "Berlin, Germany",
+        rating: 5,
+        review: "A perfectly balanced trip. Sigiriya was breathtaking, and the wildlife safari in Yala was the highlight of our year. Thank you for the seamless experience!",
+        trip: "Wild Sri Lanka & Heritage",
+    },
+    {
+        name: "Sophia Chen",
+        location: "Singapore",
+        rating: 5,
+        review: "I traveled solo with Falcon Holidays and felt safe and supported the entire time. The boutique hotels they picked were stunning. A truly premium service!",
+        trip: "Solo Boutique Discovery",
+    },
 ];
 
-
-export default async function HomePage() {
-
+export default function HomePage() {
     return (
         <div className="min-h-screen">
             {/* HERO */}
@@ -73,14 +96,10 @@ export default async function HomePage() {
 
                 {/* Content */}
                 <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-                    <div className="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 text-gold px-4 py-1.5 rounded-full text-sm font-medium mb-8 animate-fade-in">
-                        <MapPin size={14} />
-                        Discover the world, your way
-                    </div>
 
                     <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight animate-slide-up">
                         Your Dream Trip{" "}
-                        <span className="bg-gradient-to-r from-gold to-gold-300 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
                             Awaits
                         </span>
                     </h1>
@@ -114,115 +133,118 @@ export default async function HomePage() {
 
 
             {/* WHY FALCON */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-14">
-                        <div className="text-gold font-semibold text-sm tracking-wider uppercase mb-3">✦ Why Choose Us</div>
-                        <h2 className="section-heading">The Falcon Difference</h2>
-                        <p className="section-subheading">
+            <section className="py-24 bg-navy-900 relative overflow-hidden">
+                {/* Background Decorations */}
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] -translate-y-1/2" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] translate-y-1/2" />
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-16">
+                        <div className="text-blue-400 font-semibold text-sm tracking-wider uppercase mb-3 flex items-center justify-center gap-2">
+                            <span className="w-8 h-px bg-blue-400/30"></span>
+                            Why Choose Us
+                            <span className="w-8 h-px bg-blue-400/30"></span>
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-black text-white mb-5">The Falcon Difference</h2>
+                        <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
                             We've been redefining travel since 2016, making every journey as exceptional as the destination.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                         {whyFalcon.map(({ icon: Icon, title, description }) => (
                             <div
                                 key={title}
-                                className="text-center p-8 rounded-2xl border border-gray-100 hover:border-gold/30 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
+                                className="group relative p-8 rounded-3xl bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-blue-400/40 hover:bg-white/[0.06] hover:-translate-y-2 transition-all duration-500 overflow-hidden"
                             >
-                                <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-navy-900 group-hover:bg-gold transition-colors duration-300 flex items-center justify-center shadow-lg">
-                                    <Icon size={28} className="text-gold group-hover:text-navy-900 transition-colors duration-300" />
+                                {/* Card Hover Shine */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                <div className="w-16 h-16 mb-6 rounded-2xl bg-blue-400/10 flex items-center justify-center group-hover:bg-blue-400 group-hover:scale-110 transition-all duration-500 shadow-xl">
+                                    <Icon size={28} className="text-blue-400 group-hover:text-navy-900 transition-colors duration-500" />
                                 </div>
-                                <h3 className="font-bold text-navy-900 text-lg mb-3">{title}</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+
+                                <h3 className="font-bold text-white text-xl mb-4 leading-tight group-hover:text-blue-400 transition-colors duration-500">{title}</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-500">{description}</p>
+
+                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-400/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* TESTIMONIALS */}
-            <section className="py-20 bg-gray-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-14">
-                        <div className="text-gold font-semibold text-sm tracking-wider uppercase mb-3">✦ Happy Travelers</div>
-                        <h2 className="section-heading">What Our Guests Say</h2>
-                        <p className="section-subheading">
-                            Don't just take our word for it — hear from thousands of satisfied travelers worldwide.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {testimonials.map((t) => (
-                            <TestimonialCard key={t.name} {...t} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* DESTINATIONS PREVIEW - Sri Lanka Focused */}
-            <section className="py-20 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-14">
-                        <div className="text-gold font-semibold text-sm tracking-wider uppercase mb-3">✦ Explore Sri Lanka</div>
-                        <h2 className="section-heading">Iconic Sri Lanka Destinations</h2>
-                        <p className="section-subheading">
-                            From misty highlands to golden beaches — discover the Pearl of the Indian Ocean.
-                        </p>
-                    </div>
-
-                    {/* Featured large + small grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                        {/* Big feature card - Sigiriya */}
-                        <div className="col-span-2 md:col-span-1 row-span-2">
-                            <Link
-                                href="/packages?destination=Sigiriya&category=Sri+Lanka"
-                                className="group relative h-64 md:h-full min-h-[18rem] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all block"
-                            >
-                                <Image src="https://images.unsplash.com/photo-1595584779391-f64e4c2a9b0d?w=800&q=80" alt="Sigiriya" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/85 via-navy-900/20 to-transparent" />
-                                <div className="absolute bottom-0 left-0 p-5 text-white">
-                                    <div className="text-xs text-gold font-semibold uppercase tracking-wider mb-1">🇱🇰 Cultural Triangle</div>
-                                    <div className="font-bold text-2xl">Sigiriya</div>
-                                    <div className="text-gray-300 text-sm">The Lion Rock Fortress</div>
-                                </div>
-                            </Link>
-                        </div>
-
-                        {/* Small cards */}
-                        {[
-                            { name: "Kandy", region: "Hill Country", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80", tagline: "City of the Tooth Relic" },
-                            { name: "Galle", region: "Southern Coast", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80", tagline: "Dutch Colonial Fort City" },
-                            { name: "Ella", region: "Uva Province", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", tagline: "Nine Arches Bridge & Mist" },
-                            { name: "Mirissa", region: "Southern Coast", image: "https://images.unsplash.com/photo-1540202404-1b927e27fa8b?w=600&q=80", tagline: "Whale Watching & Beaches" },
-                        ].map(({ name, region, image, tagline }) => (
-                            <Link
-                                key={name}
-                                href={`/packages?destination=${name}&category=Sri+Lanka`}
-                                className="group relative h-44 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:-translate-y-1 block"
-                            >
-                                <Image src={image} alt={name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/85 to-transparent" />
-                                <div className="absolute bottom-0 left-0 p-4 text-white">
-                                    <div className="text-xs text-gold font-semibold mb-0.5">🇱🇰 {region}</div>
-                                    <div className="font-bold text-base">{name}</div>
-                                    <div className="text-gray-300 text-xs">{tagline}</div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-
-                    <div className="text-center">
-                        <Link href="/destinations" className="btn-navy">
-                            Explore All Sri Lanka Destinations <ArrowRight size={18} />
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
+            {/* TESTIMONIALS SECTION - HAPPY TRAVELERS */}
+            <TestimonialsSection testimonials={testimonials} />
 
             {/* CTA */}
             <CTASection />
         </div>
+    );
+}
+
+function TestimonialsSection({ testimonials }: { testimonials: any[] }) {
+    const [isPaused, setIsPaused] = useState(false);
+
+    return (
+        <section className="py-24 bg-navy-900 relative overflow-hidden">
+            {/* Background Text Animation Area - Wider container, fluid typography */}
+            <div className="w-full mb-20 relative h-64 flex items-center justify-center pointer-events-none">
+                <div className="flex gap-2 md:gap-6 overflow-visible py-10 opacity-30 select-none">
+                    {"FALCON HOLIDAYS".split("").map((letter, i) => (
+                        <motion.span
+                            key={i}
+                            initial={{
+                                y: Math.random() * 400 - 200,
+                                x: Math.random() * 400 - 200,
+                                rotate: Math.random() * 180 - 90,
+                                opacity: 0
+                            }}
+                            whileInView={{
+                                y: 0,
+                                x: 0,
+                                rotate: 0,
+                                opacity: 1
+                            }}
+                            viewport={{ once: false, margin: "-100px" }}
+                            transition={{
+                                duration: 2,
+                                delay: i * 0.03,
+                                ease: [0.2, 0.65, 0.3, 0.9]
+                            }}
+                            className="text-6xl md:text-[8vw] lg:text-[7vw] font-black text-white whitespace-pre inline-block font-sans tracking-tight"
+                        >
+                            {letter}
+                        </motion.span>
+                    ))}
+                </div>
+            </div>
+
+            {/* Looping Testimonials Slider */}
+            <div className="relative overflow-hidden py-10">
+                <motion.div
+                    className="flex gap-8 px-4"
+                    animate={isPaused ? {} : { x: ["0%", "-50%"] }}
+                    transition={{
+                        duration: 40,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                    style={{ width: "fit-content" }}
+                >
+                    {[...testimonials, ...testimonials].map((t, i) => (
+                        <div key={i} className="w-[350px] md:w-[450px] flex-shrink-0">
+                            <TestimonialCard {...t} />
+                        </div>
+                    ))}
+                </motion.div>
+            </div>
+
+            {/* Subtle Gradient Overlays for smooth edges */}
+            <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-navy-900 via-navy-900/40 to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-navy-900 via-navy-900/40 to-transparent z-10 pointer-events-none" />
+        </section>
     );
 }
